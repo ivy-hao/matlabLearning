@@ -10,12 +10,14 @@ chennel = 1;
 sampling = 16;
 frameLen = 256;
 overLap = 80;
+recordingTime = 5;
+timeaxis = 0:1/fs:recordingTime-1/fs;
 
 %% audiorecorder
 
 recorder = audiorecorder(fs,sampling,chennel);
 
-recordblocking(recorder,5);
+recordblocking(recorder,recordingTime);
 
 myrecording = getaudiodata(recorder);
 
@@ -29,6 +31,6 @@ sound(myrecording,16000);
 
 figure('name','recorder 5s data');
 subplot(2,1,1)
-plot(myrecording);
+plot(timeaxis,myrecording);
 subplot(2,1,2)
-spectrogram(myrecording,frameLen,0,frameLen,fs,'yaxis');
+spectrogram(myrecording,frameLen,overLap,frameLen,fs,'yaxis');
